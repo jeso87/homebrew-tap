@@ -20,7 +20,7 @@ class Shrinker < Formula
   # in the payload is built arm64-only with a 14.0 deployment target, and the
   # release gate refuses to ship anything else.
   depends_on arch: :arm64
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
 
   def install
     # Binary and helpers together in libexec, with a wrapper in bin.
