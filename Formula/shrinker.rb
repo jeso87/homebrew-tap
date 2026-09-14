@@ -1,0 +1,46 @@
+class Shrinker < Formula
+  desc "Minify images and graphics from the command line"
+  homepage "https://shrinkerpro.app"
+  url "https://github.com/jeso87/ShrinkerPro/releases/download/v1.2.0/shrinker-1.2.0-arm64.zip"
+  version "1.2.0"
+  sha256 "5c1d8a97aa040d2c52a3256d0acdc1ddb62ed9313251a46b7ebbb1653906e3f2"
+  # The zip is not MIT. Shrinker Pro's own code is, but the payload also
+  # carries gifsicle (GPL-2.0) and pngquant with libimagequant
+  # (GPL-3.0-or-later) as executables, plus BSD/libpng components. Declaring
+  # only MIT would understate what a user is installing.
+  license all_of: [
+    "MIT",
+    "GPL-2.0-only",
+    "GPL-3.0-or-later",
+    "BSD-3-Clause",
+    "libpng-2.0",
+  ]
+
+  # Apple Silicon only, and macOS 14 or newer, matching the app: every binary
+  # in the payload is built arm64-only with a 14.0 deployment target, and the
+  # release gate refuses to ship anything else.
+  depends_on arch: :arm64
+  depends_on macos: ">= :sonoma"
+
+  def install
+    # Binary and helpers together in libexec, with a wrapper in bin.
+    #
+    # The tool can find its own helpers by resolving its executable path, but
+    # this states it outright instead. Homebrew links bin/shrinker from the
+    # prefix into the Cellar, and depending on that symlink resolving the way
+    # the tool expects is a guess; SHRINKER_HELPERS is not.
+    (libexec/"shrinker").install Dir["libexec/shrinker/*"]
+    (libexec/"shrinker").install "bin/shrinker"
+    (bin/"shrinker").write_env_script libexec/"shrinker/shrinker",
+                                      SHRINKER_HELPERS: libexec/"shrinker"
+
+    # gifsicle is GPL-2.0 and pngquant GPL-3.0, so the licence text travels
+    # with the binaries wherever they go — including here.
+    prefix.install "LICENSE", "THIRD-PARTY-LICENSES.md"
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/shrinker --version")
+    assert_match "--quality", shell_output("#{bin}/shrinker --help")
+  end
+end
