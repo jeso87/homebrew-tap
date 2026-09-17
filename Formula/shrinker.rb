@@ -1,9 +1,9 @@
 class Shrinker < Formula
   desc "Minify images and graphics from the command line"
   homepage "https://shrinkerpro.app"
-  url "https://github.com/jeso87/ShrinkerPro/releases/download/v1.2.0/shrinker-1.2.0-arm64.zip"
-  version "1.2.0"
-  sha256 "5c1d8a97aa040d2c52a3256d0acdc1ddb62ed9313251a46b7ebbb1653906e3f2"
+  url "https://github.com/jeso87/ShrinkerPro/releases/download/v1.3.0/shrinker-1.3.0-arm64.zip"
+  version "1.3.0"
+  sha256 "b9727e1d88748ef65d4643cce74e166f474cce9573fea81f3e5fecf383485f73"
   # The zip is not MIT. Shrinker Pro's own code is, but the payload also
   # carries gifsicle (GPL-2.0) and pngquant with libimagequant
   # (GPL-3.0-or-later) as executables, plus BSD/libpng components. Declaring
@@ -19,6 +19,14 @@ class Shrinker < Formula
   # Apple Silicon only, and macOS 14 or newer, matching the app: every binary
   # in the payload is built arm64-only with a 14.0 deployment target, and the
   # release gate refuses to ship anything else.
+  #
+  # A bare symbol, NOT ">= :sonoma". `>=` is already the default comparator, so
+  # the string bought nothing, and Homebrew 7 rejects it: MacOSRequirement.parse
+  # deprecated the string-comparison format, execution falls through to a branch
+  # that hands the whole string to MacOSVersion.from_symbol, and the install dies
+  # with `unknown or unsupported macOS version: ">= :sonoma"`. Homebrew's own
+  # source names this line as the replacement. Verified with `brew info`, which
+  # reports "macOS >= 14" — a floor, so macOS 26 and 27 satisfy it.
   depends_on arch: :arm64
   depends_on macos: :sonoma
 
