@@ -1,5 +1,5 @@
 class Shrinker < Formula
-  desc "Minify images and graphics from the command line"
+  desc "Command-line image and graphics minifier"
   homepage "https://shrinkerpro.app"
   url "https://github.com/jeso87/ShrinkerPro/releases/download/v1.6.0/shrinker-1.6.0-arm64.zip"
   version "1.6.0"
