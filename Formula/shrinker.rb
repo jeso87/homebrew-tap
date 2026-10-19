@@ -1,9 +1,9 @@
 class Shrinker < Formula
   desc "Command-line image and graphics minifier"
   homepage "https://shrinkerpro.app"
-  url "https://github.com/jeso87/ShrinkerPro/releases/download/v1.6.0/shrinker-1.6.0-arm64.zip"
-  version "1.6.0"
-  sha256 "2a4d9626499c9f0714df3af1a2b03d55d07152f57071fb42a11137c00e69c25f"
+  url "https://github.com/jeso87/ShrinkerPro/releases/download/v1.6.1/shrinker-1.6.1-arm64.zip"
+  version "1.6.1"
+  sha256 "ccf10977ee48f9ecaf87ca9c451114e197b4e8679711801c90cec8cbd71cdf54"
   # The zip is not MIT. Shrinker Pro's own code is, but the payload also
   # carries gifsicle (GPL-2.0) and pngquant with libimagequant
   # (GPL-3.0-or-later) as executables, plus BSD/libpng components. Declaring
