@@ -1,12 +1,21 @@
 # jeso87/homebrew-tap
 
-A [Homebrew](https://brew.sh) tap for command-line tools from
+A [Homebrew](https://brew.sh) tap for apps and command-line tools from
 [87dash](https://github.com/jeso87).
 
 ## Install
 
 ```sh
-brew install jeso87/tap/shrinker
+brew install --cask jeso87/tap/shrinker-pro   # the Shrinker Pro app
+brew install jeso87/tap/shrinker              # its headless command
+```
+
+In a `Brewfile`:
+
+```ruby
+tap "jeso87/tap"
+cask "shrinker-pro"
+brew "jeso87/tap/shrinker"
 ```
 
 Homebrew expands `jeso87/tap` to this repository, so there is nothing to
@@ -14,9 +23,18 @@ Homebrew expands `jeso87/tap` to this repository, so there is nothing to
 
 ## What's here
 
+### `shrinker-pro` (cask)
+
+[Shrinker Pro](https://shrinkerpro.app), the app: drag images onto the window
+and it writes smaller copies beside the originals. Same DMG as the website's
+download, signed and notarized. The app updates itself through Sparkle, and
+the cask declares `auto_updates`, so `brew upgrade` leaves it alone rather
+than fighting the in-app updater. `brew uninstall --zap` also removes its
+preferences and caches.
+
 ### `shrinker`
 
-Minifies images and graphics — JPEG, PNG, WebP, AVIF, HEIC, GIF and SVG —
+Minifies images and graphics — JPEG, PNG, WebP, AVIF, JPEG XL, HEIC, GIF and SVG —
 using the same compression engine as the
 [Shrinker Pro](https://shrinkerpro.app) app, without a window.
 
@@ -40,11 +58,11 @@ them, and `THIRD-PARTY-LICENSES.md` is installed alongside the binaries.
 Corresponding source for the GPL components accompanies every release on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases).
 
-## A note on the formulae
+## A note on the formulae and casks
 
-Files under `Formula/` are generated during a release — `scripts/release.sh`
+Files under `Formula/` and `Casks/` are generated during a release — `scripts/release.sh`
 in the ShrinkerPro repository fills in the version, the release URL and the
-SHA-256 of the exact archive it just notarized. Editing one by hand here means
+SHA-256 of the exact archive or DMG it just notarized. Editing one by hand here means
 the next release overwrites your change, and a hand-typed checksum that
 doesn't match the archive is an install failure for everyone. Change the
 template in that repository instead.
