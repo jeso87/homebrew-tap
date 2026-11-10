@@ -1,8 +1,8 @@
 cask "shrinker-pro" do
   arch arm: "arm64"
 
-  version "1.6.1"
-  sha256 "c6839c2ad243f23f19d811fc6fd2879e7c80833aaeaddfc4a4eecbbfc8740b7a"
+  version "1.7.0"
+  sha256 "4be7af23064f54c93acd46faf0351948306826cedd5aa1c54a1762828ec6d49d"
 
   url "https://github.com/jeso87/ShrinkerPro/releases/download/v#{version}/ShrinkerPro-#{version}.dmg"
   name "Shrinker Pro"
